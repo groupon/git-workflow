@@ -1,3 +1,8 @@
+### 1.0.1
+
+* [`6d8b4ca`](https://github.com/groupon/git-workflow/commit/6d8b4ca264793abf2d689dfd13e3020905652953) **chore:** change package name to `git-wf`
+
+
 ### 1.0.0
 
 * start running CI & publishing - **[@dbushong](https://github.com/dbushong)** [#1](https://github.com/groupon/git-workflow/pull/1)
