@@ -15,7 +15,7 @@ it just opens your browser to complete Pull Request operations.
 ## Installation
 
 ```
-$ npm install -g git-workflow
+$ npm install -g git-wf
 ```
 
 If your GitHub username does not match `$USER` in your environment, you
