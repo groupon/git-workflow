@@ -1,0 +1,5 @@
+/.nyc_output
+/target
+node_modules/
+npm-debug.log
+/tmp

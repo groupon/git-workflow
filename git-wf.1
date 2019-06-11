@@ -1,0 +1,20 @@
+Usage: git wf [options] [command]
+
+Options:
+  -V, --version             output the version number
+  -O, --no-open             Never auto-open URLs in the browser
+  --yes                     Answer yes to all yes/no prompts
+  --no                      Answer no to all yes/no prompts
+  -h, --help                output usage information
+
+Commands:
+  abort                     Close a feature branch without it being merged [CAREFUL]
+  cut-release [branch]      Move branch (default: master) commits onto release branch
+  done                      Cleanup current merged, PRed feature branch
+  hotfix <buildTag>         Move branch hotfix to given build tag
+  merge-back                Merges all changes back from master ← release ← hotfix
+  pr                        Open a PR to merge current feature branch
+  qa [options] [branch]     Tag given (or current) branch as a build
+  rename                    Rename local and remote current feature branch
+  start [options] <branch>  Create new feature branch from current branch
+  setup                     Verifies your branch setup

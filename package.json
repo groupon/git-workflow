@@ -1,0 +1,68 @@
+{
+  "name": "git-workflow",
+  "version": "0.0.0",
+  "description": "Git Workflow Subcommands",
+  "license": "BSD-3-Clause",
+  "main": "lib/git-workflow.js",
+  "bin": {
+    "git-wf": "cli.js"
+  },
+  "homepage": "https://github.com/groupon/git-workflow",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/groupon/git-workflow"
+  },
+  "bugs": {
+    "url": "https://github.com/groupon/git-workflow/issues"
+  },
+  "scripts": {
+    "pretest": "eslint lib test && ./cli.js --help | sed 's/Usage: cli/Usage: git wf/' > git-wf.1",
+    "test": "mocha",
+    "posttest": "nlm verify"
+  },
+  "engines": {
+    "npm": "^6.0.0",
+    "yarn": "0.0.0"
+  },
+  "man": "git-wf.1",
+  "nlm": {
+    "license": {
+      "files": [
+        "lib"
+      ]
+    }
+  },
+  "dependencies": {
+    "commander": "^2.11.0",
+    "debug": "^3.0.1",
+    "lodash": "^4.17.11",
+    "open": "^6.3.0",
+    "simple-git": "^1.77.0"
+  },
+  "devDependencies": {
+    "assertive": "^2.1.0",
+    "eslint": "^5.1.0",
+    "eslint-config-groupon": "^7.2.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-mocha": "^5.1.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-prettier": "^2.6.2",
+    "mktemp": "^0.4.0",
+    "mocha": "^6.1.4",
+    "nlm": "^3.6.1",
+    "prettier": "^1.6.1",
+    "rimraf": "^2.6.2"
+  },
+  "author": {
+    "name": "Groupon",
+    "email": "opensource@groupon.com"
+  },
+  "files": [
+    "*.js",
+    "*.1",
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  }
+}
