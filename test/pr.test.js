@@ -100,6 +100,11 @@ describe('pr', () => {
         `compare/master...${prefix}:feature/master/kittens-are-cute`,
         url.pathname
       );
+      assert.include(
+        'body has the footer url',
+        'https://github.com/groupon/git-workflow/releases/tag/v',
+        url.query.body
+      );
     });
   });
 });
