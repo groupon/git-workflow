@@ -43,7 +43,7 @@ describe('merge-back', () => {
     await t.git.commit('umerged master change');
     await t.git.push();
 
-    await mergeBackAction(t);
+    await mergeBackAction({ deps: t });
 
     // make sure everything got merged back
     await assertMergedBack(t.ghGit);
@@ -62,7 +62,7 @@ describe('merge-back', () => {
       await t.git.push();
     }
 
-    const err = await assert.rejects(mergeBackAction(t));
+    const err = await assert.rejects(mergeBackAction({ deps: t }));
     assert.include('When conflicts are resolved', err.message);
 
     const branches = await t.ghGit.branchLocal();
