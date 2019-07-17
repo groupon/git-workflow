@@ -16,12 +16,12 @@ function extractURL(logs) {
 
 async function setupForPR(t, msgs) {
   await verifySetup('pr', t);
-  await startAction(t, 'kittens-are-cute');
+  await startAction({ deps: t, args: ['kittens-are-cute'], opts: {} });
   for (const msg of msgs) {
     await t.changeSomething();
     await t.git.commit(`${msg}\n\nsome msg\n`, ['README']);
   }
-  await prAction(t, { parent: { open: false } });
+  await prAction({ deps: t, opts: { parent: { open: false } } });
   return extractURL(t.logged);
 }
 
@@ -73,7 +73,7 @@ describe('pr', () => {
 
   it('dies with pretty error on out-of-date push', async () => {
     await verifySetup('pr', t);
-    await startAction(t, 'kittens-are-cute');
+    await startAction({ deps: t, args: ['kittens-are-cute'], opts: {} });
     await t.git2.fetch();
     await t.git2.checkout(`${t.user}/feature/master/kittens-are-cute`);
     await Promise.all([t.changeSomething(), t.changeSomething2()]);
@@ -82,7 +82,9 @@ describe('pr', () => {
       t.git2.commit('two', ['README']),
     ]);
     await t.git2.push();
-    const err = await assert.rejects(prAction(t, { parent: { open: false } }));
+    const err = await assert.rejects(
+      prAction({ deps: t, opts: { parent: { open: false } } })
+    );
     assert.include('local repo is out-of-date', err.message);
   });
 

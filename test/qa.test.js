@@ -17,7 +17,7 @@ describe('qa', () => {
     await t.changeSomething();
     await t.git.commit('hotfix change', ['README']);
 
-    await qaAction(t, null, { mergeBack: true });
+    await qaAction({ deps: t, opts: { mergeBack: true }, args: [] });
 
     assert.expect(
       (await t.ghGit.tags()).all.some(tag => /^build-\d/.test(tag))
@@ -34,7 +34,7 @@ describe('qa', () => {
 
     assert.equal(1, (await t.git.log(['master..release'])).total);
 
-    await qaAction(t, 'release', { mergeBack: true });
+    await qaAction({ deps: t, args: ['release'], opts: { mergeBack: true } });
 
     assert.equal(
       'no unmerged commits locally',

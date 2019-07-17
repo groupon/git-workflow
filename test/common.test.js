@@ -12,7 +12,7 @@ describe('common', () => {
 
   describe('featureParent()', () => {
     it('finds a parent from a local branch name', async () => {
-      await startAction(t, 'kittens');
+      await startAction({ deps: t, args: ['kittens'], opts: {} });
       const { parent, remote } = await common.featureParent(t.git, 'kittens');
       assert.equal('master', parent);
       assert.equal('origin', remote);
@@ -28,7 +28,7 @@ describe('common', () => {
       beforeEach(() => (t.git = t.gitFork));
 
       it('finds a parent from a local branch name', async () => {
-        await startAction(t, 'kittens');
+        await startAction({ deps: t, args: ['kittens'], opts: {} });
         const { remote, parent } = await common.featureParent(t.git, 'kittens');
         assert.equal('fork', remote);
         assert.equal('master', parent);
@@ -51,11 +51,6 @@ describe('common', () => {
   });
 
   describe('gitConfig()', () => {
-    it('returns config as a nested tree', async () => {
-      const cfg = await common.gitConfig(t.git);
-      assert.equal(t.ghDir, cfg.remote.origin.url);
-    });
-
     it('returns config as flat object', async () => {
       const cfg = await common.gitConfig(t.git, true);
       assert.equal(t.ghDir, cfg['remote.origin.url']);
@@ -64,7 +59,7 @@ describe('common', () => {
 
   describe('ghURL()', () => {
     it('infers a github url from a repo', async () => {
-      await startAction(t, 'kittens');
+      await startAction({ deps: t, args: ['kittens'], opts: {} });
       await t.git.addConfig('remote.origin.url', 'git@github.com:foo/bar.git');
       assert.equal(
         'https://github.com/foo/bar/xyz?a=42',

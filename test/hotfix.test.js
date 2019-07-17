@@ -25,7 +25,7 @@ describe('hotfix', () => {
       prevBranches.branches.hotfix.commit
     );
 
-    await hotfixAction(t, tag);
+    await hotfixAction({ deps: t, args: [tag] });
 
     const branches = await t.ghGit.branchLocal();
     assert.equal(
