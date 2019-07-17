@@ -16,7 +16,7 @@
     "url": "https://github.com/groupon/git-workflow/issues"
   },
   "scripts": {
-    "pretest": "eslint lib test && ./cli.js --help | sed 's/Usage: cli/Usage: git wf/' > git-wf.1",
+    "pretest": "eslint lib test && tsc && ./cli.js --help | sed 's/Usage: cli/Usage: git wf/' > git-wf.1",
     "test": "mocha",
     "posttest": "nlm verify"
   },
