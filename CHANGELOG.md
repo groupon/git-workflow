@@ -1,3 +1,9 @@
+### 1.0.4
+
+* chore(deps): bump eslint-utils from 1.3.1 to 1.4.3 - **[@dependabot[bot]](https://github.com/apps/dependabot)** [#4](https://github.com/groupon/git-workflow/pull/4)
+  - [`2884c0f`](https://github.com/groupon/git-workflow/commit/2884c0febd7d4634a3498531499421eb1b6e0f35) **chore:** bump eslint-utils from 1.3.1 to 1.4.3
+
+
 ### 1.0.3
 
 * setup fix & code cleanup - **[@dbushong](https://github.com/dbushong)** [#3](https://github.com/groupon/git-workflow/pull/3)
