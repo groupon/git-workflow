@@ -1,3 +1,9 @@
+### 1.0.5
+
+* chore(deps): bump acorn from 6.1.1 to 6.4.1 - **[@dependabot[bot]](https://github.com/apps/dependabot)** [#6](https://github.com/groupon/git-workflow/pull/6)
+  - [`ff9a58e`](https://github.com/groupon/git-workflow/commit/ff9a58ef5493d1e3cc300483a0abf949fa4e7d9e) **chore:** bump acorn from 6.1.1 to 6.4.1 - see: [6](- [Commits](https://github.com/acornjs/acorn/compare/6)
+
+
 ### 1.0.4
 
 * chore(deps): bump eslint-utils from 1.3.1 to 1.4.3 - **[@dependabot[bot]](https://github.com/apps/dependabot)** [#4](https://github.com/groupon/git-workflow/pull/4)
