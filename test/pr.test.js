@@ -14,14 +14,18 @@ function extractURL(logs) {
   return URL.parse(logs.match(/^Opening (https:\S+)/m)[1], true);
 }
 
-async function setupForPR(t, msgs) {
+async function setupForPR(t, msgs, prOpts = {}) {
   await verifySetup('pr', t);
   await startAction({ deps: t, args: ['kittens-are-cute'], opts: {} });
   for (const msg of msgs) {
     await t.changeSomething();
     await t.git.commit(`${msg}\n\nsome msg\n`, ['README']);
   }
-  await prAction({ deps: t, opts: { parent: { open: false } } });
+  const opts = {
+    parent: { open: false },
+    ...prOpts,
+  };
+  await prAction({ deps: t, opts });
   return extractURL(t.logged);
 }
 
@@ -55,6 +59,26 @@ describe('pr', () => {
     assert.include(
       'body has list of commit subjects',
       '* fix: added kitten 1\n* fix: added kitten 2\n',
+      url.query.body
+    );
+  });
+
+  it('respects the contents of a PULL_REQUEST_TEMPLATE', async () => {
+    const url = await setupForPR(t, ['feat: use a PR template']);
+    assert.include(
+      'contents of a PULL_REQUEST_TEMPLATE.md file',
+      "Please ensure you adequately describe both the problem you're solving for",
+      url.query.body
+    );
+  });
+
+  it('optionally ignores PULL_REQUEST_TEMPLATE', async () => {
+    const url = await setupForPR(t, ['feat: use a PR template'], {
+      ignorePrTemplate: true,
+    });
+    assert.notInclude(
+      'contents of the PULL REQUEST TEMPLATE are not present',
+      "Please ensure you adequately describe both the problem you're solving for",
       url.query.body
     );
   });
