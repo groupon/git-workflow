@@ -1,3 +1,9 @@
+### 1.1.0
+
+* feat: respect the presence of a PULL_REQUEST_TEMPALTE.md - **[@markowsiak](https://github.com/markowsiak)** [#7](https://github.com/groupon/git-workflow/pull/7)
+  - [`76478eb`](https://github.com/groupon/git-workflow/commit/76478eb8caf0d7be8aef36857252d72e7b26724d) **feat:** respect the presence of a PULL_REQUEST_TEMPALTE.md
+
+
 ### 1.0.5
 
 * chore(deps): bump acorn from 6.1.1 to 6.4.1 - **[@dependabot[bot]](https://github.com/apps/dependabot)** [#6](https://github.com/groupon/git-workflow/pull/6)
