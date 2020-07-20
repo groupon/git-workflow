@@ -1,3 +1,9 @@
+### 1.1.1
+
+* chore(deps): bump lodash from 4.17.14 to 4.17.19 - **[@dependabot[bot]](https://github.com/apps/dependabot)** [#8](https://github.com/groupon/git-workflow/pull/8)
+  - [`d62d24b`](https://github.com/groupon/git-workflow/commit/d62d24b8ef34f635d73fa21c2b70ac79adb29d41) **chore:** bump lodash from 4.17.14 to 4.17.19 - see: [4](- [Commits](https://github.com/lodash/lodash/compare/4)
+
+
 ### 1.1.0
 
 * feat: respect the presence of a PULL_REQUEST_TEMPALTE.md - **[@markowsiak](https://github.com/markowsiak)** [#7](https://github.com/groupon/git-workflow/pull/7)
