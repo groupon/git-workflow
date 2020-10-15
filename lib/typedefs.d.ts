@@ -13,10 +13,13 @@ export type CmdOpts = {
   [opt: string]: any;
 };
 
+export type MainBranch = 'main' | 'master';
+
 export type ActionFn = (allArgs: {
   deps: CmdDeps;
   opts: CmdOpts;
   args: string[];
+  main: MainBranch;
 }) => void | Promise<void>;
 
 export type WrapActionFn = (action: ActionFn) => (...args: any[]) => void;

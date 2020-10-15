@@ -8,23 +8,33 @@ const verifySetup = require('../lib/setup');
 const { action: cutReleaseAction } = require('../lib/commands/cut-release');
 
 describe('cut-release', () => {
-  const t = addHooks();
+  for (const main of ['main', 'master']) {
+    describe(`with ${main} branch`, () => {
+      const t = addHooks(main);
 
-  it('opens a master → release PR url', async () => {
-    await verifySetup('cut-release', t); // need branches to merge back
-    await cutReleaseAction({
-      deps: t,
-      args: [],
-      opts: { parent: { open: false } },
+      it(`opens a ${main} → release PR url`, async () => {
+        await verifySetup('cut-release', t); // need branches to merge back
+        await cutReleaseAction({
+          deps: t,
+          args: [],
+          opts: { parent: { open: false } },
+          main,
+        });
+        assert.include(`/compare/release...${main}?`, t.logged);
+      });
+
+      it('refuses to run on a checkout with a fork', async () => {
+        t.git = t.gitFork;
+        const err = await assert.rejects(
+          cutReleaseAction({
+            deps: t,
+            args: [],
+            opts: { parent: { open: false } },
+            main,
+          })
+        );
+        assert.include('with a fork remote', err.message);
+      });
     });
-    assert.include('/compare/release...master?', t.logged);
-  });
-
-  it('refuses to run on a checkout with a fork', async () => {
-    t.git = t.gitFork;
-    const err = await assert.rejects(
-      cutReleaseAction({ deps: t, args: [], opts: { parent: { open: false } } })
-    );
-    assert.include('with a fork remote', err.message);
-  });
+  }
 });
