@@ -1,3 +1,9 @@
+### 1.1.2
+
+* audit dep fixes - **[@dbushong](https://github.com/dbushong)** [#10](https://github.com/groupon/git-workflow/pull/10)
+  - [`05bda0a`](https://github.com/groupon/git-workflow/commit/05bda0a1a307067ae529489b6ea83db3b061820f) **chore:** audit dep fixes
+
+
 ### 1.1.1
 
 * chore(deps): bump lodash from 4.17.14 to 4.17.19 - **[@dependabot[bot]](https://github.com/apps/dependabot)** [#8](https://github.com/groupon/git-workflow/pull/8)
