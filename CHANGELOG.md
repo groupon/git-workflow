@@ -1,3 +1,9 @@
+### 1.2.0
+
+* support "main" as default branch - **[@dbushong](https://github.com/dbushong)** [#9](https://github.com/groupon/git-workflow/pull/9)
+  - [`2b8d9f2`](https://github.com/groupon/git-workflow/commit/2b8d9f23002375b941bc2a472b945f1f32995fee) **feat:** support "main" as default branch
+
+
 ### 1.1.2
 
 * audit dep fixes - **[@dbushong](https://github.com/dbushong)** [#10](https://github.com/groupon/git-workflow/pull/10)
