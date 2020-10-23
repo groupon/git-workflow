@@ -1,3 +1,10 @@
+### 1.2.1
+
+* support more PULL_REQUEST_TEMPLATE.md locs - **[@dbushong](https://github.com/dbushong)** [#11](https://github.com/groupon/git-workflow/pull/11)
+  - [`d68474d`](https://github.com/groupon/git-workflow/commit/d68474d76de0e5da1b0e2d203ab05092997db885) **fix:** support more PULL_REQUEST_TEMPLATE.md locs
+  - [`96c1fd6`](https://github.com/groupon/git-workflow/commit/96c1fd6813e089674d8f5d97f790aca0beafd79c) **test:** properly test PR template code
+
+
 ### 1.2.0
 
 * support "main" as default branch - **[@dbushong](https://github.com/dbushong)** [#9](https://github.com/groupon/git-workflow/pull/9)
