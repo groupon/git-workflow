@@ -11,6 +11,10 @@ const mktemp = require('mktemp');
 const writeFileAsync = promisify(require('fs').writeFile);
 const rimrafAsync = promisify(require('rimraf'));
 
+/**
+ * @typedef {import('../lib/typedefs').MainBranch} MainBranch
+ */
+
 const tmpDir = process.env.TMPDIR || '/tmp';
 
 const FAKE_USER = 'jdoe';
@@ -32,7 +36,7 @@ async function setupGitHubDir() {
   return [dir, git];
 }
 
-async function setupLocalDir(ghDir) {
+async function setupLocalDir(ghDir, ghGit, main) {
   const dir = await mktemp.createDir(
     path.join(tmpDir, 'feature-test-local-XXXXXXX')
   );
@@ -42,6 +46,13 @@ async function setupLocalDir(ghDir) {
   await git.add(['.']);
   await git.commit('init');
   await git.push();
+
+  if (main !== 'master') {
+    await ghGit.branch(['-m', 'master', main]);
+    await git.branch(['-m', 'master', main]);
+    await git.push(['-u', 'origin', `${main}:${main}`]);
+  }
+
   return [dir, git];
 }
 
@@ -85,7 +96,11 @@ function wfCLI(dir, args) {
   });
 }
 
-function addHooks() {
+/**
+ * TODO: have this default to main, once there's time to rewrite all the tests
+ * @param {MainBranch} [main]
+ */
+function addHooks(main = 'master') {
   const t = {
     changeSomething(file) {
       return changeSomething(t.localDir, file);
@@ -112,7 +127,7 @@ function addHooks() {
     savedUser = process.env.USER;
     process.env.USER = FAKE_USER;
     [t.ghDir, t.ghGit] = await setupGitHubDir();
-    [t.localDir, t.git] = await setupLocalDir(t.ghDir);
+    [t.localDir, t.git] = await setupLocalDir(t.ghDir, t.ghGit, main);
     [t.localDir2, t.git2] = await setupLocalDir2(t.ghDir);
     [t.forkDir, t.gitFork] = await setupForkDir(t.ghDir);
     t.logged = '';
