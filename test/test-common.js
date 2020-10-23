@@ -122,19 +122,23 @@ function addHooks(main = 'master') {
   };
 
   let savedUser;
+  let savedDir;
 
   beforeEach('setup git dir', async () => {
     savedUser = process.env.USER;
+    savedDir = process.cwd();
     process.env.USER = FAKE_USER;
     [t.ghDir, t.ghGit] = await setupGitHubDir();
     [t.localDir, t.git] = await setupLocalDir(t.ghDir, t.ghGit, main);
     [t.localDir2, t.git2] = await setupLocalDir2(t.ghDir);
     [t.forkDir, t.gitFork] = await setupForkDir(t.ghDir);
     t.logged = '';
+    process.chdir(t.localDir);
   });
 
   afterEach(() => {
     process.env.USER = savedUser;
+    process.chdir(savedDir);
     delete t.forceBool;
     return Promise.all(
       [t.ghDir, t.localDir, t.localDir2, t.forkDir].map(dir =>

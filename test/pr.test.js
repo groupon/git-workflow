@@ -9,6 +9,7 @@ const addHooks = require('./test-common');
 const verifySetup = require('../lib/setup');
 const { action: startAction } = require('../lib/commands/start');
 const { action: prAction } = require('../lib/commands/pr');
+const { writeFileSync, mkdirSync } = require('fs');
 
 function extractURL(logs) {
   return URL.parse(logs.match(/^Opening (https:\S+)/m)[1], true);
@@ -64,21 +65,34 @@ describe('pr', () => {
   });
 
   it('respects the contents of a PULL_REQUEST_TEMPLATE', async () => {
+    writeFileSync('PULL_REQUEST_TEMPLATE.md', 'Important stuff');
     const url = await setupForPR(t, ['feat: use a PR template']);
     assert.include(
       'contents of a PULL_REQUEST_TEMPLATE.md file',
-      "Please ensure you adequately describe both the problem you're solving for",
+      'Important stuff',
+      url.query.body
+    );
+  });
+
+  it('respects the contents of a .github/pull_request_template', async () => {
+    mkdirSync('.github');
+    writeFileSync('.github/pull_request_template.md', 'Other stuff');
+    const url = await setupForPR(t, ['feat: use a PR template']);
+    assert.include(
+      'contents of a pull_request_template.md file',
+      'Other stuff',
       url.query.body
     );
   });
 
   it('optionally ignores PULL_REQUEST_TEMPLATE', async () => {
+    writeFileSync('PULL_REQUEST_TEMPLATE.md', 'Important stuff');
     const url = await setupForPR(t, ['feat: use a PR template'], {
       ignorePrTemplate: true,
     });
     assert.notInclude(
       'contents of the PULL REQUEST TEMPLATE are not present',
-      "Please ensure you adequately describe both the problem you're solving for",
+      'Important stuff',
       url.query.body
     );
   });
