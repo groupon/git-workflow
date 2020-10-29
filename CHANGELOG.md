@@ -1,3 +1,12 @@
+### 1.3.0
+
+* feat: `git wf done` detects squash commits - **[@dbushong](https://github.com/dbushong)** [#12](https://github.com/groupon/git-workflow/pull/12)
+  - [`09b9fba`](https://github.com/groupon/git-workflow/commit/09b9fba9a602935c92fb7f7c13b5d355bfb54829) **chore:** upgrade simple-git
+  - [`8cbecd2`](https://github.com/groupon/git-workflow/commit/8cbecd292f838182205770d18cdbb196173496a8) **feat:** done: detect squash commits
+  - [`ed0a8a2`](https://github.com/groupon/git-workflow/commit/ed0a8a2f7c6940b7a8cc7a966a9e9b73fd52577b) **fix:** work with new simple-git output
+  - [`1428141`](https://github.com/groupon/git-workflow/commit/14281415ee13156f94b7e94fda3fc8ac4e852ed9) **test:** done: add test for squash merge detect
+
+
 ### 1.2.1
 
 * support more PULL_REQUEST_TEMPLATE.md locs - **[@dbushong](https://github.com/dbushong)** [#11](https://github.com/groupon/git-workflow/pull/11)
