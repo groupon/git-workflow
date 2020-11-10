@@ -1,3 +1,9 @@
+### 1.3.1
+
+* remove engines requirement - **[@dbushong](https://github.com/dbushong)** [#13](https://github.com/groupon/git-workflow/pull/13)
+  - [`0446873`](https://github.com/groupon/git-workflow/commit/0446873afcaa269e288b5534236715a82cabba8e) **chore:** remove engines requirement
+
+
 ### 1.3.0
 
 * feat: `git wf done` detects squash commits - **[@dbushong](https://github.com/dbushong)** [#12](https://github.com/groupon/git-workflow/pull/12)
