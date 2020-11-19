@@ -1,3 +1,9 @@
+### 1.3.2
+
+* let squash merge detection be fuzzier - **[@dbushong](https://github.com/dbushong)** [#14](https://github.com/groupon/git-workflow/pull/14)
+  - [`3611eaf`](https://github.com/groupon/git-workflow/commit/3611eafc8f918fb80e5d8499d02a07dd403ef63c) **fix:** let squash merge detection be fuzzier
+
+
 ### 1.3.1
 
 * remove engines requirement - **[@dbushong](https://github.com/dbushong)** [#13](https://github.com/groupon/git-workflow/pull/13)
