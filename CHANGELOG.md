@@ -1,3 +1,9 @@
+### 1.3.3
+
+* chore(deps): bump ini from 1.3.5 to 1.3.7 - **[@dependabot[bot]](https://github.com/apps/dependabot)** [#15](https://github.com/groupon/git-workflow/pull/15)
+  - [`2507c08`](https://github.com/groupon/git-workflow/commit/2507c08d6240b55e772a4d3835b93f548d3f9820) **chore:** bump ini from 1.3.5 to 1.3.7 - see: [v1](- [Commits](https://github.com/isaacs/ini/compare/v1)
+
+
 ### 1.3.2
 
 * let squash merge detection be fuzzier - **[@dbushong](https://github.com/dbushong)** [#14](https://github.com/groupon/git-workflow/pull/14)
