@@ -1,3 +1,10 @@
+### 1.3.4
+
+* Find PR templates in root dir - **[@dbushong](https://github.com/dbushong)** [#18](https://github.com/groupon/git-workflow/pull/18)
+  - [`919b1ba`](https://github.com/groupon/git-workflow/commit/919b1baea818e1fa6dd27338585fbe8f3c82d762) **fix:** find PR tmpl from root-level
+  - [`0309fab`](https://github.com/groupon/git-workflow/commit/0309fabe6b408dfe9e00b9fb269965942f3aca31) **chore:** ran `npm audit fix`
+
+
 ### 1.3.3
 
 * chore(deps): bump ini from 1.3.5 to 1.3.7 - **[@dependabot[bot]](https://github.com/apps/dependabot)** [#15](https://github.com/groupon/git-workflow/pull/15)
