@@ -1,9 +1,0 @@
-{
-  "@grpn/generator-js": {
-    "pkg": {
-      "scripts": {
-        "build": "./cli.js --help | sed 's/Usage: cli/Usage: git wf/' > git-wf.1"
-      }
-    }
-  }
-}
