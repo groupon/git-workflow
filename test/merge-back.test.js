@@ -63,7 +63,7 @@ describe('merge-back', () => {
           /When conflicts are resolved/
         );
         const branches = await t.ghGit.branchLocal();
-        assert.match(branches.all, /jdoe\/feature\/release\/merge-hotfix/);
+        assert.ok(branches.all.includes('jdoe/feature/release/merge-hotfix'));
         assert.ok(!branches.all.includes(`jdoe/feature/${main}/merge-release`));
       });
     });

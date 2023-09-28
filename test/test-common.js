@@ -12,7 +12,7 @@ const writeFileAsync = promisify(require('fs').writeFile);
 const rimrafAsync = promisify(require('rimraf'));
 
 /**
- * @typedef {import('../lib/typedefs').MainBranch} MainBranch
+ * @typedef {import('../lib/typedefs.d.ts').MainBranch} MainBranch
  */
 
 const tmpDir = process.env.TMPDIR || '/tmp';
@@ -32,7 +32,9 @@ async function setupGitHubDir() {
     path.join(tmpDir, 'feature-test-gh-XXXXXXX')
   );
   const git = simpleGit(dir).silent(true);
-  await git.init(true);
+  // master to make legacy tests work; we'll switch it to default-to-main later
+  // raw b/c simple-git 1.x .init() doesn't support extra args
+  await git.raw(['init', '--bare', '--initial-branch=master']);
   return [dir, git];
 }
 

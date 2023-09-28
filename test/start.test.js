@@ -16,11 +16,10 @@ describe('start', () => {
       opts: {},
     });
     const { branches } = await t.git.branch(['-vv']);
-    assert.strictEqual(!!branches.kittens, true, 'local branch created');
+    assert.ok(branches.kittens, 'local branch created');
     assert.match(branches.kittens.label, /^\[origin\//, 'on origin remote');
-    assert.match(
-      (await t.ghGit.branchLocal()).all,
-      /jdoe\/feature\/master\/kittens/,
+    assert.ok(
+      (await t.ghGit.branchLocal()).all.includes('jdoe/feature/master/kittens'),
       'remote branch pushed'
     );
   });
@@ -34,11 +33,10 @@ describe('start', () => {
       },
     });
     const { branches } = await t.git.branch(['-vv']);
-    assert.strictEqual(!!branches.kittens, true, 'local branch created');
+    assert.ok(branches.kittens, 'local branch created');
     assert.match(branches.kittens.label, /^\[fork\//, 'on fork remote');
-    assert.match(
-      (await t.ghGit.branchLocal()).all,
-      /feature\/master\/kittens/,
+    assert.ok(
+      (await t.ghGit.branchLocal()).all.includes('feature/master/kittens'),
       'remote branch on fork pushed'
     );
   });
@@ -54,11 +52,10 @@ describe('start', () => {
       },
     });
     const { branches } = await t.git.branch(['-vv']);
-    assert.strictEqual(!!branches.kittens, true, 'local branch created');
+    assert.ok(branches.kittens, 'local branch created');
     assert.match(branches.kittens.label, /^\[origin\//, 'on origin remote');
-    assert.match(
-      (await t.ghGit.branchLocal()).all,
-      /jdoe\/feature\/master\/kittens/,
+    assert.ok(
+      (await t.ghGit.branchLocal()).all.includes('jdoe/feature/master/kittens'),
       'remote branch pushed'
     );
     assert.strictEqual(await readFile(readmePath, 'utf8'), newREADME);
@@ -72,11 +69,10 @@ describe('start', () => {
       },
     });
     const { branches } = await t.git.branch(['-vv']);
-    assert.strictEqual(!!branches.kittens, true, 'local branch created');
+    assert.ok(branches.kittens, 'local branch created');
     assert.match(branches.kittens.label, /^\[origin\//, 'on origin remote');
-    assert.match(
-      (await t.ghGit.branchLocal()).all,
-      /jdoe\/feature\/other\/kittens/,
+    assert.ok(
+      (await t.ghGit.branchLocal()).all.includes('jdoe/feature/other/kittens'),
       'remote branch pushed'
     );
   });

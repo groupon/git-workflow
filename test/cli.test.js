@@ -9,7 +9,7 @@ describe('cli', () => {
       const t = addHooks(main);
       it('runs setup', async () => {
         await t.cli('setup');
-        assert.match((await t.ghGit.branchLocal()).all, /hotfix/);
+        assert.ok((await t.ghGit.branchLocal()).all.includes('hotfix'));
       });
       it('shows errors', async () => {
         await assert.rejects(t.cli('qa', 'tofu'), /'tofu' did not match/);
@@ -29,7 +29,7 @@ describe('cli', () => {
         await t.changeSomething();
         await t.git.commit('changed', ['README']);
         await assert.rejects(t.cli('done', '--no'), /unmerged/);
-        assert.match((await t.git.branchLocal()).all, /kittens/);
+        assert.ok((await t.git.branchLocal()).all.includes('kittens'));
       });
     });
   }
