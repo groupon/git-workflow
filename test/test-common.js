@@ -5,7 +5,7 @@ const { execFile } = require('child_process');
 const { promisify } = require('util');
 
 const debug = require('debug')('workflow:test');
-const simpleGit = require('simple-git/promise');
+const simpleGit = require('simple-git');
 const mktemp = require('mktemp');
 
 const writeFileAsync = promisify(require('fs').writeFile);

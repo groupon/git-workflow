@@ -1,5 +1,5 @@
 export type CmdDeps = {
-  git: import('simple-git/promise').SimpleGit;
+  git: import('simple-git').SimpleGit;
   log(msg: string): void;
   forceBool?: boolean;
 };
