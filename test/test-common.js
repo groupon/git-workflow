@@ -44,6 +44,8 @@ async function setupLocalDir(ghDir, ghGit, main) {
   );
   const git = simpleGit(dir).silent(true);
   await git.clone(ghDir, dir);
+  await git.addConfig('user.name', 'Tester');
+  await git.addConfig('user.email', 'test@example.com');
   await changeSomething(dir);
   await git.add(['.']);
   await git.commit('init');
