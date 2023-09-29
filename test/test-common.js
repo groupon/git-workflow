@@ -38,14 +38,21 @@ async function setupGitHubDir() {
   return [dir, git];
 }
 
-async function setupLocalDir(ghDir, ghGit, main) {
-  const dir = await mktemp.createDir(
-    path.join(tmpDir, 'feature-test-local-XXXXXXX')
-  );
+/**
+ * @param {string} ghDir
+ * @param {string} dir
+ */
+async function gitClone(ghDir) {
+  const dir = await mktemp.createDir(path.join(tmpDir, 'feature-test-XXXXXXX'));
   const git = simpleGit(dir);
   await git.clone(ghDir, dir);
   await git.addConfig('user.name', 'Tester');
   await git.addConfig('user.email', 'test@example.com');
+  return [dir, git];
+}
+
+async function setupLocalDir(ghDir, ghGit, main) {
+  const [dir, git] = await gitClone(ghDir);
   await changeSomething(dir);
   await git.add(['.']);
   await git.commit('init');
@@ -60,23 +67,12 @@ async function setupLocalDir(ghDir, ghGit, main) {
   return [dir, git];
 }
 
-async function setupLocalDir2(ghDir) {
-  const dir = await mktemp.createDir(
-    path.join(tmpDir, 'feature-test-local2-XXXXXXX')
-  );
-  const git = simpleGit(dir);
-  await git.clone(ghDir, dir);
-  await git.addConfig('user.name', 'Tester');
-  await git.addConfig('user.email', 'test@example.com');
-  return [dir, git];
+function setupLocalDir2(ghDir) {
+  return gitClone(ghDir);
 }
 
 async function setupForkDir(ghDir) {
-  const dir = await mktemp.createDir(
-    path.join(tmpDir, 'feature-test-local-XXXXXXX')
-  );
-  const git = simpleGit(dir);
-  await git.clone(ghDir, dir);
+  const [dir, git] = await gitClone(ghDir);
   await git.addRemote('fork', ghDir);
   return [dir, git];
 }

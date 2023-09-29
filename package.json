@@ -28,6 +28,9 @@
       ]
     }
   },
+  "mocha": {
+    "timeout": 5000
+  },
   "dependencies": {
     "commander": "^2.11.0",
     "debug": "^3.0.1",
