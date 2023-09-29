@@ -31,7 +31,7 @@ async function setupGitHubDir() {
   const dir = await mktemp.createDir(
     path.join(tmpDir, 'feature-test-gh-XXXXXXX')
   );
-  const git = simpleGit(dir).silent(true);
+  const git = simpleGit(dir);
   // master to make legacy tests work; we'll switch it to default-to-main later
   // raw b/c simple-git 1.x .init() doesn't support extra args
   await git.raw(['init', '--bare', '--initial-branch=master']);
@@ -42,7 +42,7 @@ async function setupLocalDir(ghDir, ghGit, main) {
   const dir = await mktemp.createDir(
     path.join(tmpDir, 'feature-test-local-XXXXXXX')
   );
-  const git = simpleGit(dir).silent(true);
+  const git = simpleGit(dir);
   await git.clone(ghDir, dir);
   await git.addConfig('user.name', 'Tester');
   await git.addConfig('user.email', 'test@example.com');
@@ -64,7 +64,7 @@ async function setupLocalDir2(ghDir) {
   const dir = await mktemp.createDir(
     path.join(tmpDir, 'feature-test-local2-XXXXXXX')
   );
-  const git = simpleGit(dir).silent(true);
+  const git = simpleGit(dir);
   await git.clone(ghDir, dir);
   await git.addConfig('user.name', 'Tester');
   await git.addConfig('user.email', 'test@example.com');
