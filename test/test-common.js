@@ -5,14 +5,14 @@ const { execFile } = require('child_process');
 const { promisify } = require('util');
 
 const debug = require('debug')('workflow:test');
-const simpleGit = require('simple-git/promise');
+const simpleGit = require('simple-git');
 const mktemp = require('mktemp');
 
 const writeFileAsync = promisify(require('fs').writeFile);
 const rimrafAsync = promisify(require('rimraf'));
 
 /**
- * @typedef {import('../lib/typedefs').MainBranch} MainBranch
+ * @typedef {import('../lib/typedefs.d.ts').MainBranch} MainBranch
  */
 
 const tmpDir = process.env.TMPDIR || '/tmp';
@@ -31,17 +31,28 @@ async function setupGitHubDir() {
   const dir = await mktemp.createDir(
     path.join(tmpDir, 'feature-test-gh-XXXXXXX')
   );
-  const git = simpleGit(dir).silent(true);
-  await git.init(true);
+  const git = simpleGit(dir);
+  // master to make legacy tests work; we'll switch it to default-to-main later
+  // raw b/c simple-git 1.x .init() doesn't support extra args
+  await git.raw(['init', '--bare', '--initial-branch=master']);
+  return [dir, git];
+}
+
+/**
+ * @param {string} ghDir
+ * @param {string} dir
+ */
+async function gitClone(ghDir) {
+  const dir = await mktemp.createDir(path.join(tmpDir, 'feature-test-XXXXXXX'));
+  const git = simpleGit(dir);
+  await git.clone(ghDir, dir);
+  await git.addConfig('user.name', 'Tester');
+  await git.addConfig('user.email', 'test@example.com');
   return [dir, git];
 }
 
 async function setupLocalDir(ghDir, ghGit, main) {
-  const dir = await mktemp.createDir(
-    path.join(tmpDir, 'feature-test-local-XXXXXXX')
-  );
-  const git = simpleGit(dir).silent(true);
-  await git.clone(ghDir, dir);
+  const [dir, git] = await gitClone(ghDir);
   await changeSomething(dir);
   await git.add(['.']);
   await git.commit('init');
@@ -56,21 +67,12 @@ async function setupLocalDir(ghDir, ghGit, main) {
   return [dir, git];
 }
 
-async function setupLocalDir2(ghDir) {
-  const dir = await mktemp.createDir(
-    path.join(tmpDir, 'feature-test-local2-XXXXXXX')
-  );
-  const git = simpleGit(dir).silent(true);
-  await git.clone(ghDir, dir);
-  return [dir, git];
+function setupLocalDir2(ghDir) {
+  return gitClone(ghDir);
 }
 
 async function setupForkDir(ghDir) {
-  const dir = await mktemp.createDir(
-    path.join(tmpDir, 'feature-test-local-XXXXXXX')
-  );
-  const git = simpleGit(dir);
-  await git.clone(ghDir, dir);
+  const [dir, git] = await gitClone(ghDir);
   await git.addRemote('fork', ghDir);
   return [dir, git];
 }

@@ -28,17 +28,19 @@
       ]
     }
   },
+  "mocha": {
+    "timeout": 5000
+  },
   "dependencies": {
     "commander": "^2.11.0",
     "debug": "^3.0.1",
     "open": "^6.3.0",
-    "simple-git": "^1.132.0"
+    "simple-git": "^3.20.0"
   },
   "devDependencies": {
     "@types/debug": "^4.1.4",
     "@types/mocha": "^5.2.7",
     "@types/node": "^10.14.12",
-    "assertive": "^3.1.0",
     "eslint": "^5.1.0",
     "eslint-config-groupon": "^7.2.0",
     "eslint-plugin-import": "^2.8.0",
@@ -46,11 +48,11 @@
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-prettier": "^2.6.2",
     "mktemp": "^0.4.0",
-    "mocha": "^6.2.3",
-    "nlm": "^3.6.1",
+    "mocha": "^10.2.0",
+    "nlm": "^5.8.0",
     "prettier": "^1.6.1",
     "rimraf": "^2.6.2",
-    "typescript": "^3.5.3"
+    "typescript": "^5.2.2"
   },
   "author": {
     "name": "Groupon",

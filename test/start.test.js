@@ -1,72 +1,79 @@
 'use strict';
 
+const assert = require('assert');
 const fs = require('fs');
 const { promisify } = require('util');
-
-const assert = require('assertive');
-
 const addHooks = require('./test-common');
 const { action: startAction } = require('../lib/commands/start');
 
 const readFile = promisify(fs.readFile);
-
 describe('start', () => {
   const t = addHooks();
-
   it('creates a feature branch', async () => {
-    await startAction({ deps: t, args: ['kittens'], opts: {} });
+    await startAction({
+      deps: t,
+      args: ['kittens'],
+      opts: {},
+    });
     const { branches } = await t.git.branch(['-vv']);
-    assert.expect('local branch created', !!branches.kittens);
-    assert.match('on origin remote', /^\[origin\//, branches.kittens.label);
-    assert.include(
-      'remote branch pushed',
-      'jdoe/feature/master/kittens',
-      (await t.ghGit.branchLocal()).all
+    assert.ok(branches.kittens, 'local branch created');
+    assert.match(branches.kittens.label, /^\[origin\//, 'on origin remote');
+    assert.ok(
+      (await t.ghGit.branchLocal()).all.includes('jdoe/feature/master/kittens'),
+      'remote branch pushed'
     );
   });
-
   it('--fork creates a feature branch on a fork', async () => {
     t.git = t.gitFork;
-    await startAction({ deps: t, args: ['kittens'], opts: { fork: true } });
+    await startAction({
+      deps: t,
+      args: ['kittens'],
+      opts: {
+        fork: true,
+      },
+    });
     const { branches } = await t.git.branch(['-vv']);
-    assert.expect('local branch created', !!branches.kittens);
-    assert.match('on fork remote', /^\[fork\//, branches.kittens.label);
-    assert.include(
-      'remote branch on fork pushed',
-      'feature/master/kittens',
-      (await t.ghGit.branchLocal()).all
+    assert.ok(branches.kittens, 'local branch created');
+    assert.match(branches.kittens.label, /^\[fork\//, 'on fork remote');
+    assert.ok(
+      (await t.ghGit.branchLocal()).all.includes('feature/master/kittens'),
+      'remote branch on fork pushed'
     );
   });
-
   it('--stash stashes files first', async () => {
     const readmePath = `${t.localDir}/README`;
     await t.changeSomething();
     const newREADME = await readFile(readmePath, 'utf8');
-    await startAction({ deps: t, args: ['kittens'], opts: { stash: true } });
+    await startAction({
+      deps: t,
+      args: ['kittens'],
+      opts: {
+        stash: true,
+      },
+    });
     const { branches } = await t.git.branch(['-vv']);
-    assert.expect('local branch created', !!branches.kittens);
-    assert.match('on origin remote', /^\[origin\//, branches.kittens.label);
-    assert.include(
-      'remote branch pushed',
-      'jdoe/feature/master/kittens',
-      (await t.ghGit.branchLocal()).all
+    assert.ok(branches.kittens, 'local branch created');
+    assert.match(branches.kittens.label, /^\[origin\//, 'on origin remote');
+    assert.ok(
+      (await t.ghGit.branchLocal()).all.includes('jdoe/feature/master/kittens'),
+      'remote branch pushed'
     );
-    assert.equal(newREADME, await readFile(readmePath, 'utf8'));
+    assert.strictEqual(await readFile(readmePath, 'utf8'), newREADME);
   });
-
   it('--pr-base overrides recorded parent branch', async () => {
     await startAction({
       deps: t,
       args: ['kittens'],
-      opts: { prBase: 'other' },
+      opts: {
+        prBase: 'other',
+      },
     });
     const { branches } = await t.git.branch(['-vv']);
-    assert.expect('local branch created', !!branches.kittens);
-    assert.match('on origin remote', /^\[origin\//, branches.kittens.label);
-    assert.include(
-      'remote branch pushed',
-      'jdoe/feature/other/kittens',
-      (await t.ghGit.branchLocal()).all
+    assert.ok(branches.kittens, 'local branch created');
+    assert.match(branches.kittens.label, /^\[origin\//, 'on origin remote');
+    assert.ok(
+      (await t.ghGit.branchLocal()).all.includes('jdoe/feature/other/kittens'),
+      'remote branch pushed'
     );
   });
 });
